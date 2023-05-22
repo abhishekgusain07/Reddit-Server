@@ -6,14 +6,18 @@ const connectDB = require('./db/connect.js')
 app.use(express.json());
 const port = process.env.PORT || 8080
 
+// Routers
+const authRouters = require('./Routes/auth.js');
+const postRouters = require('./Routes/post.js');
 // error handler
 const notFoundMiddleware = require("./middleware/not-found")
 const errorHandlerMiddleware = require('./middleware/error-handler')
+
 app.use(express.json());
 
-app.get('/',(req, res) => {
-    res.send("Reddit server");
-});
+// routes
+app.use("/reddit/auth", authRouters);
+app.use("/reddit/posts", postRouters);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
