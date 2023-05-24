@@ -9,6 +9,8 @@ const port = process.env.PORT || 8080
 // Routers
 const authRouters = require('./Routes/auth.js');
 const postRouters = require('./Routes/post.js');
+const authenticateUser = require('./middleware/auth.js');
+
 // error handler
 const notFoundMiddleware = require("./middleware/not-found")
 const errorHandlerMiddleware = require('./middleware/error-handler')
@@ -17,7 +19,7 @@ app.use(express.json());
 
 // routes
 app.use("/reddit/auth", authRouters);
-app.use("/reddit/posts", postRouters);
+app.use("/reddit/posts", authenticateUser, postRouters);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

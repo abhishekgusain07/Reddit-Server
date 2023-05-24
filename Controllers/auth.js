@@ -38,7 +38,7 @@ const login = async(req, res) => {
         }
         const checkPassword = await bcrypt.compare(password, user.password);
         if(!checkPassword)res.status(404).json({msg: `Invalid Password`});
-        const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
+        const token = jwt.sign({id:user._id},process.env.JWT_SECRET, {expiresIn:'30d'});
         delete user.password
         res.status(200).json({token, user});
     }

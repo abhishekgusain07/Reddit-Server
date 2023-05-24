@@ -3,13 +3,17 @@ const router = express.Router();
 
 const {
     getAllPosts,
-    getSinglePost,
+    getUserPost,
     createPost,
     deletePost,
     updatePost,
+    likePost,
+    dislikePost,
 } = require('../Controllers/post.js');
 
 router.route('/').post(createPost).get(getAllPosts);
-router.route('/:id').get(getSinglePost).patch(updatePost).delete(deletePost)
+router.route('/:userId').get(getUserPost).patch(updatePost).delete(deletePost)
+router.route('/:id/like').post(likePost);
+router.route('/:id/dislike').post(dislikePost)
 
 module.exports = router;
